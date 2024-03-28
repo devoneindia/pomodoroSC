@@ -1,4 +1,6 @@
 
+using Pomodoro.Server.DbContexts;
+
 namespace Pomodoro.Server
 {
 	public class Program
@@ -13,7 +15,8 @@ namespace Pomodoro.Server
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
-
+			EntryDbContext entries = new EntryDbContext();
+			builder.Services.AddSingleton(entries);
 			var app = builder.Build();
 
 			app.UseDefaultFiles();
