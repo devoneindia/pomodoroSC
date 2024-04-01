@@ -29,7 +29,7 @@
   </ul>
 </div>-->
 
-<div *ngIf="entries.length > 0">
+<div *ngIf="userentry">
   <h2>Existing Entries</h2>
   <table>
     <thead>
@@ -43,14 +43,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let entry of entries">
+      <tr *ngFor="let entry of userentry">
         <td>{{ entry.devname }}</td>
         <td>{{ entry.date | date }}</td>
         <td>{{ entry.startingtime }}</td>
         <td>{{ entry.endingtime }}</td>
         <td>{{ entry.comment }}</td>
         <td>
-          <button (click)="deleteEntry(entry.id)">Delete</button>
+          <!--<button (click)="deleteEntry(entry.id)">Delete</button>-->
         </td>
       </tr>
     </tbody>

@@ -10,7 +10,7 @@ namespace Pomodoro.Server.Controllers
 	public class PomodoroController : ControllerBase
 	{
 		private readonly EntryDbContext entryDbContext;
-		private static List<Entry> Entries = new List<Entry>();
+		//private static List<Entry> Entries = new List<Entry>();
 
 		public PomodoroController(EntryDbContext entryDb)
 		{
@@ -33,23 +33,23 @@ namespace Pomodoro.Server.Controllers
 			return Ok(entry);
 		}
 		[HttpGet]
-		public IActionResult GetAllEntries()
+		public Entry[] GetAllEntries()
 		{
-			return Ok(Entries);
+			return entryDbContext.entries.ToArray();
 		}
 
-		[HttpDelete("{id}")]
-		public IActionResult DeleteEntry(int id)
-		{
-			var entryToRemove = Entries.FirstOrDefault(e => e.Id == id);
-			if (entryToRemove == null)
-			{
-				return NotFound();
-			}
+		//[HttpDelete("{id}")]
+		//public IActionResult DeleteEntry(int id)
+		//{
+		//	var entryToRemove = Entries.FirstOrDefault(e => e.Id == id);
+		//	if (entryToRemove == null)
+		//	{
+		//		return NotFound();
+		//	}
 
-			Entries.Remove(entryToRemove);
-			return Ok();
-		}
+		//	Entries.Remove(entryToRemove);
+		//	return Ok();
+		//}
 	}
 }
 
