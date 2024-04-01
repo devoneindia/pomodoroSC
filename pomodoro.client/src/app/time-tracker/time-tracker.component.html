@@ -1,0 +1,58 @@
+<div>
+  <h1 style="color:darkslateblue">Pomodoro Time-Tracker</h1>
+  <form (ngSubmit)="saveDevEntry()">
+    <label for="devname">Developer Name:</label>
+    <input type="text" id="devname" [(ngModel)]="record.devname" name="devname">
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" [(ngModel)]="record.date" name="date">
+
+    <label for="startingtime">Starting Time:</label>
+    <input type="time" id="startingtime" [(ngModel)]="record.startingtime" name="startingtime">
+
+    <label for="endingtime">Ending Time:</label>
+    <input type="time" id="endingtime" [(ngModel)]="record.endingtime" name="endingtime">
+
+    <label for="comment">Comment:</label>
+    <textarea id="comment" [(ngModel)]="record.comment" name="comment"></textarea>
+
+    <button type="submit" class="btn btn-primary">Save Entry</button>
+  </form>
+</div>
+<!--<div *ngIf="entries.length > 0">
+  <h2>Existing Entries</h2>
+  <ul>
+    <li *ngFor="let entry of entries">
+      <span>{{ entry.devname }} - {{ entry.date | date }}</span>
+      <button (click)="deleteEntry(entry.id)">Delete</button>
+    </li>
+  </ul>
+</div>-->
+
+<div *ngIf="userentry">
+  <h2>Existing Entries</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Developer Name</th>
+        <th>Date</th>
+        <th>Starting Time</th>
+        <th>Ending Time</th>
+        <th>Comment</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of userentry">
+        <td>{{ entry.devname }}</td>
+        <td>{{ entry.date | date }}</td>
+        <td>{{ entry.startingtime }}</td>
+        <td>{{ entry.endingtime }}</td>
+        <td>{{ entry.comment }}</td>
+        <td>
+          <!--<button (click)="deleteEntry(entry.id)">Delete</button>-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
