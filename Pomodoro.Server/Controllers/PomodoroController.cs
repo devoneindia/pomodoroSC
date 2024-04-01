@@ -38,18 +38,20 @@ namespace Pomodoro.Server.Controllers
 			return entryDbContext.entries.ToArray();
 		}
 
-		//[HttpDelete("{id}")]
-		//public IActionResult DeleteEntry(int id)
-		//{
-		//	var entryToRemove = Entries.FirstOrDefault(e => e.Id == id);
-		//	if (entryToRemove == null)
-		//	{
-		//		return NotFound();
-		//	}
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteEntry(int id)
+		{
+			var entryToRemove = await entryDbContext.entries.FindAsync(id);
+			if (entryToRemove == null)
+			{
+				return NotFound();
+			}
 
-		//	Entries.Remove(entryToRemove);
-		//	return Ok();
-		//}
+			entryDbContext.entries.Remove(entryToRemove);
+			await entryDbContext.SaveChangesAsync();
+
+			return Ok();
+		}
 	}
 }
 

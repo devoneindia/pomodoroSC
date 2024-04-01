@@ -49,13 +49,13 @@ export class TimeTrackerComponent implements OnInit {
   }
 
     ngOnInit(): void {
-   // this.getAllEntries();
+    this.getAllEntries();
   }
 
   getAllEntries() {
     this.http.get<Entry[]>('/pomodoro').subscribe(
-      (entries) => {
-        this.userentry = entries;
+      (result) => {
+        this.userentry = result;
       },
       (error) => {
         console.error('Error fetching entries:', error);
@@ -63,17 +63,17 @@ export class TimeTrackerComponent implements OnInit {
     );
   }
 
-  //deleteEntry(id: number) {
-  //  this.http.delete(`/pomodoro/${id}`).subscribe(
-  //    () => {
-  //      console.log('Deleted successfully');
-  //      this.getAllEntries(); 
-  //    },
-  //    (error) => {
-  //      console.error('Error deleting entry:', error);
-  //    }
-  //  );
-  //}
+  deleteEntry(id: number): void {
+    this.http.delete(`/pomodoro/${id}`).subscribe(
+      () => {
+        console.log('Deleted successfully');
+        this.getAllEntries(); 
+      },
+      (error) => {
+        console.error('Error deleting entry:', error);
+      }
+    );
+  }
 
   title = 'entry.client';
 }
