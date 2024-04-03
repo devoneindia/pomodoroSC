@@ -8,6 +8,7 @@ interface Entry {
   startingtime: string;
   endingtime: string;
   comment: string;
+  totaltime: string;
 }
 
 @Component({
@@ -23,8 +24,14 @@ export class TimeTrackerComponent implements OnInit {
     date: new Date(),
     startingtime: '',
     endingtime: '',
-    comment: ''
+    comment: '',
+    totaltime: ''
   };
+
+  timer: any;
+  timerStarted: boolean = false;
+  startTime!: Date;
+  currentTime!: string;
 
   constructor(private http: HttpClient) { }
 
@@ -38,7 +45,8 @@ export class TimeTrackerComponent implements OnInit {
           date: new Date(),
           startingtime: '',
           endingtime: '',
-          comment: ''
+          comment: '',
+          totaltime: ''
         };
         this.getAllEntries(); 
       },
@@ -73,6 +81,32 @@ export class TimeTrackerComponent implements OnInit {
         console.error('Error deleting entry:', error);
       }
     );
+  }
+
+  startTimer() {
+    this.record.startingtime = new Date().toTimeString().slice(0, 8);
+    this.startTime = new Date();
+    this.timerStarted = true;
+    this.timer = setInterval(() => {
+      const currentTime = new Date();
+      this.currentTime = currentTime.toTimeString().slice(0, 8);
+    }, 1000); // Update every second
+  }
+  stopTimer() {
+    clearInterval(this.timer);
+    this.timerStarted = false;
+    const endTime = new Date();
+    const totalTime = this.calculateTotalTime(this.startTime, endTime);
+    this.record.endingtime = endTime.toTimeString().slice(0, 8);
+    this.record.totaltime = totalTime;
+    this.saveDevEntry();
+  }
+  calculateTotalTime(startTime: Date, endTime: Date): string {
+    const totalTimeInSeconds = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
+    const hours = Math.floor(totalTimeInSeconds / 3600);
+    const minutes = Math.floor((totalTimeInSeconds % 3600) / 60);
+    const seconds = totalTimeInSeconds % 60;
+    return `${hours}:${minutes}:${seconds}`;
   }
 
   title = 'entry.client';

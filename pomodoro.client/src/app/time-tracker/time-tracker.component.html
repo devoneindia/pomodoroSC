@@ -17,6 +17,15 @@
     <textarea id="comment" [(ngModel)]="record.comment" name="comment"></textarea>
 
     <button type="submit" class="btn btn-primary">Save Entry</button>
+
+    <button type="button" class="btn btn-primary" [disabled]="timerStarted" (click)="startTimer()">Start</button>
+    
+    <button type="button" class="btn btn-danger" [disabled]="!timerStarted" (click)="stopTimer()">Stop</button>
+
+    <div class="form-group form-group-running-time" *ngIf="timerStarted">
+      <label for="runningTime">Running Time:</label>
+      <input type="text" class="form-control input-running-time" id="runningTime" [(ngModel)]="currentTime" name="runningTime" [disabled]="true">
+    </div>
   </form>
 </div>
 
