@@ -11,16 +11,16 @@ namespace Pomodoro.Server.Models
 		public int Id { get; set; }
 
 		[Column("dev-name")]
-		public string DevName { get; set; }
+		public string Devname { get; set; }
 
 		[Column("date")]
 		public DateOnly Date { get; set; }
 
 		[Column("starting-time")]
-		public string StartingTime { get; set; }
+		public string Startingtime { get; set; }
 
 		[Column("ending-time")]
-		public string EndingTime { get; set; }
+		public string Endingtime { get; set; }
 
 		[Column("comment")]
 		public string Comment { get; set; }

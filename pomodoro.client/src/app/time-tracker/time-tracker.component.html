@@ -19,27 +19,19 @@
     <button type="submit" class="btn btn-primary">Save Entry</button>
   </form>
 </div>
-<!--<div *ngIf="entries.length > 0">
-  <h2>Existing Entries</h2>
-  <ul>
-    <li *ngFor="let entry of entries">
-      <span>{{ entry.devname }} - {{ entry.date | date }}</span>
-      <button (click)="deleteEntry(entry.id)">Delete</button>
-    </li>
-  </ul>
-</div>-->
+
 
 <div *ngIf="userentry">
-  <h2>Existing Entries</h2>
+  <h2 align="left" style="color:brown">Existing Entries</h2>
   <table>
     <thead>
       <tr>
-        <th>Developer Name</th>
-        <th>Date</th>
-        <th>Starting Time</th>
-        <th>Ending Time</th>
-        <th>Comment</th>
-        <th>Action</th>
+        <th style="color:darkslateblue">Developer Name</th>
+        <th style="color:darkslateblue">Date</th>
+        <th style="color:darkslateblue">Starting Time</th>
+        <th style="color:darkslateblue">Ending Time</th>
+        <th style="color:darkslateblue">Comment</th>
+        <th style="color:darkslateblue">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -50,9 +42,11 @@
         <td>{{ entry.endingtime }}</td>
         <td>{{ entry.comment }}</td>
         <td>
-          <!--<button (click)="deleteEntry(entry.id)">Delete</button>-->
+          <button (click)="deleteEntry(entry.id)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+
