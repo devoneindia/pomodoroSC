@@ -1,30 +1,41 @@
 <div>
-  <h1 style="color:darkslateblue">Pomodoro Time-Tracker</h1>
-  <form (ngSubmit)="saveDevEntry()">
-    <label for="devname">Developer Name:</label>
-    <input type="text" id="devname" [(ngModel)]="record.devname" name="devname">
+  <h1 style="color:darkslateblue; text-align: center;">Pomodoro Time-Tracker</h1>
+  <form (ngSubmit)="saveDevEntry()" style="text-align: center;">
+    <div class="row">
+      <div class="col-4">
+        <label for="devname" style="display:grid;  text-align: left;">Developer Name:</label>
+        <select id="devname" [(ngModel)]="record.devname" name="devname" class="form-control">
+          <option value="santhosh">Santhosh</option>
+          <option value="praveen">Praveen</option>
+          <option value="akila">Akila</option>
+          <option value="rahul">Rahul</option>
+        </select>
+      </div>
 
-    <label for="date">Date:</label>
-    <input type="date" id="date" [(ngModel)]="record.date" name="date">
+      <div class="col-4">
+        <label for="date" style="display: block; text-align: left;">Date:</label>
+        <input type="date" id="date" [(ngModel)]="record.date" name="date" class="form-control">
+      </div>
 
-    <label for="startingtime">Starting Time:</label>
-    <input type="time" id="startingtime" [(ngModel)]="record.startingtime" name="startingtime">
+      <div class="col-4">
+        <label for="comment" style="display: block; text-align: left;">Comment:</label>
+        <textarea id="comment" [(ngModel)]="record.comment" name="comment" class="form-control" style="align-content:center"></textarea>
+      </div>
+    </div>
 
-    <label for="endingtime">Ending Time:</label>
-    <input type="time" id="endingtime" [(ngModel)]="record.endingtime" name="endingtime">
+    <div class="row mt-2">
+      <div class="col-4">
+        <button type="button" class="btn btn-primary" [disabled]="timerStarted" (click)="startTimer()">Start</button>
+      </div>
 
-    <label for="comment">Comment:</label>
-    <textarea id="comment" [(ngModel)]="record.comment" name="comment"></textarea>
+      <div class="col-4">
+        <button type="button" class="btn btn-danger" [disabled]="!timerStarted" (click)="stopTimer()">Stop</button>
+      </div>
 
-    <button type="submit" class="btn btn-primary">Save Entry</button>
-
-    <button type="button" class="btn btn-primary" [disabled]="timerStarted" (click)="startTimer()">Start</button>
-    
-    <button type="button" class="btn btn-danger" [disabled]="!timerStarted" (click)="stopTimer()">Stop</button>
-
-    <div class="form-group form-group-running-time" *ngIf="timerStarted">
-      <label for="runningTime">Running Time:</label>
-      <input type="text" class="form-control input-running-time" id="runningTime" [(ngModel)]="currentTime" name="runningTime" [disabled]="true">
+      <div class="col-4 form-group-running-time" *ngIf="timerStarted">
+        <label for="runningTime" style="display: block; text-align: left;">Running Time:</label>
+        <input type="text" class="form-control input-running-time" id="runningTime" [(ngModel)]="currentTime" name="runningTime" [disabled]="true">
+      </div>
     </div>
   </form>
 </div>
@@ -40,6 +51,7 @@
         <th style="color:darkslateblue">Starting Time</th>
         <th style="color:darkslateblue">Ending Time</th>
         <th style="color:darkslateblue">Comment</th>
+        <th style="color:darkslateblue">TotalTime</th>
         <th style="color:darkslateblue">Action</th>
       </tr>
     </thead>
@@ -50,6 +62,7 @@
         <td>{{ entry.startingtime }}</td>
         <td>{{ entry.endingtime }}</td>
         <td>{{ entry.comment }}</td>
+        <td>{{ entry.totaltime }}</td>
         <td>
           <button (click)="deleteEntry(entry.id)">Delete</button>
         </td>
