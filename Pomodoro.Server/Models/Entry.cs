@@ -24,5 +24,8 @@ namespace Pomodoro.Server.Models
 
 		[Column("comment")]
 		public string Comment { get; set; }
+
+		[Column("total-time")]
+		public string Totaltime { get; set; }
 	}
 }
