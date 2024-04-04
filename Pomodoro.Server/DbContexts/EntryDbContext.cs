@@ -6,6 +6,7 @@ namespace Pomodoro.Server.DbContexts
 	public class EntryDbContext:DbContext
 	{
 		public DbSet<Entry> entries { get; set; }
+		public DbSet<User> users { get; set; }
 
 		public EntryDbContext()
 		{

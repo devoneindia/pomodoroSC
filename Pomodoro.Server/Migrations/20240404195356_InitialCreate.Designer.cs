@@ -12,8 +12,8 @@ using Pomodoro.Server.DbContexts;
 namespace Pomodoro.Server.Migrations
 {
     [DbContext(typeof(EntryDbContext))]
-    [Migration("20240404173453_UpdatedAppSettings")]
-    partial class UpdatedAppSettings
+    [Migration("20240404195356_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,30 @@ namespace Pomodoro.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("entry");
+                });
+
+            modelBuilder.Entity("Pomodoro.Server.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("user-name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("user");
                 });
 #pragma warning restore 612, 618
         }
