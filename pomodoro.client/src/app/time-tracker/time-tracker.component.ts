@@ -36,7 +36,7 @@ export class TimeTrackerComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   saveDevEntry() {
-    this.http.post<Entry>('/pomodoro', this.record).subscribe(
+    this.http.post<Entry>('/api/pomodoro', this.record).subscribe(
       (result) => {
         console.log('saved successfully:', result);
         this.record = {
@@ -61,7 +61,7 @@ export class TimeTrackerComponent implements OnInit {
   }
 
   getAllEntries() {
-    this.http.get<Entry[]>('/pomodoro').subscribe(
+    this.http.get<Entry[]>('/api/pomodoro').subscribe(
       (result) => {
         this.userentry = result;
       },
@@ -72,7 +72,7 @@ export class TimeTrackerComponent implements OnInit {
   }
 
   deleteEntry(id: number): void {
-    this.http.delete(`/pomodoro/${id}`).subscribe(
+    this.http.delete(`/api/pomodoro/${id}`).subscribe(
       () => {
         console.log('Deleted successfully');
         this.getAllEntries(); 
