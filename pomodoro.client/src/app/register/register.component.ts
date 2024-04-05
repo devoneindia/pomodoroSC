@@ -1,34 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User';
 import { HttpClient } from '@angular/common/http';
-
-interface User {
-  id: string;
-  username: string;
-  password: string;
-}
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'] // corrected styleUrl to styleUrls
 })
-export class HomeComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   public uservalue: User[] = [];
   public newUser: User = {
-    id: '',
+    id: 0,
     username: '',
     password: ''
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { } // Inject Router here
 
   SaveUser() {
     this.http.post<User>('/api/user', this.newUser).subscribe(
       (result) => {
         console.log('saved successfully:', result);
-        // Clear the form fields after successful submission
         this.newUser.username = '';
         this.newUser.password = '';
+        this.router.navigate(['/app-time-tracker']);
       },
       (error) => {
         console.error('Error saving user-entry:', error);
