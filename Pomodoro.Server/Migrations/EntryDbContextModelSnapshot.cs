@@ -64,6 +64,30 @@ namespace Pomodoro.Server.Migrations
 
                     b.ToTable("entry");
                 });
+
+            modelBuilder.Entity("Pomodoro.Server.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("user-name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("user");
+                });
 #pragma warning restore 612, 618
         }
     }

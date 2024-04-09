@@ -17,6 +17,8 @@ namespace Pomodoro.Server
 			builder.Services.AddSwaggerGen();
 			EntryDbContext entries = new EntryDbContext();
 			builder.Services.AddSingleton(entries);
+			EntryDbContext users = new EntryDbContext();
+			builder.Services.AddSingleton(users);
 			var app = builder.Build();
 
 			app.UseDefaultFiles();

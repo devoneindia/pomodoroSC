@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Entry } from '../../models/Entry';
 
-interface Entry {
-  id: number;
-  devname: string;
-  date: Date;
-  startingtime: string;
-  endingtime: string;
-  comment: string;
-  totaltime: string;
-}
 
 @Component({
   selector: 'app-time-tracker',
