@@ -5,7 +5,7 @@
       <form (ngSubmit)="SaveUser()">
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" class="form-control" id="username" name="username" [(ngModel)]="newUser.username" required>
+          <input type="text" class="form-control" id="username" name="userName" [(ngModel)]="newUser.userName" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -19,5 +19,5 @@
 
 
 <nav>
-  <a class="button" routerLink="/app-time-tracker">TimeTracker</a>
+  <a class="button" routerLink="/track-time">TimeTracker</a>
 </nav>

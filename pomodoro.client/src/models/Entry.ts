@@ -1,9 +1,10 @@
 export interface Entry {
   id: number;
-  devname: string;
+  userName: string;
   date: Date;
   startingtime: string;
   endingtime: string;
   comment: string;
   totaltime: string;
+  userId: number;
 }

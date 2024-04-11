@@ -60,7 +60,7 @@ namespace Pomodoro.Server.Controllers
 				return StatusCode(500, "An error occurred while processing your request.");
 			}
 		}
-
+		
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteEntry(int id)
 		{
@@ -83,83 +83,8 @@ namespace Pomodoro.Server.Controllers
 				return StatusCode(500, "An error occurred while processing your request.");
 			}
 		}
+
 	}
 }
-
-
-
-
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using Pomodoro.Server.DbContexts;
-//using Pomodoro.Server.Models;
-
-//namespace Pomodoro.Server.Controllers
-//{
-//	[Route("api/[controller]")]
-//	[ApiController]
-//	public class PomodoroController : ControllerBase
-//	{
-//		private readonly ILogger<PomodoroController> _logger;
-//		private readonly EntryDbContext entryDbContext;
-//		private static List<Entry> Entries = new List<Entry>();
-//		public PomodoroController(ILogger<PomodoroController> logger)
-//		{
-//			_logger = logger;
-//		}
-
-//		public PomodoroController(EntryDbContext entryDb)
-//		{
-//			entryDbContext = entryDb;
-//		}
-
-
-//		[HttpPost]
-//		public async Task<IActionResult> saveDevEntry([FromBody] Entry entry)
-//		{
-//			if (!ModelState.IsValid)
-//			{
-//				return BadRequest(ModelState);
-//			}
-
-//			// Save user data to the database
-//			entryDbContext.entries.Add(entry);
-//			await entryDbContext.SaveChangesAsync();
-
-//			return Ok(entry);
-//		}
-
-//		[HttpGet]
-//		public Entry[] GetAllEntries()
-//		{
-//			try
-//			{
-//				var entry = entryDbContext.entries.ToArray();
-//				return Ok(entry);
-//			}
-//			catch (Exception ex)
-//			{
-//				_logger.LogError($"An error occurred while fetching entries: {ex}");
-//				return StatusCode(500, "An error occurred while processing your request.");
-//			}
-//		}
-
-//		[HttpDelete("{id}")]
-//		public async Task<IActionResult> DeleteEntry(int id)
-//		{
-//			var entryToRemove = await entryDbContext.entries.FindAsync(id);
-//			if (entryToRemove == null)
-//			{
-//				return NotFound();
-//			}
-
-//			entryDbContext.entries.Remove(entryToRemove);
-//			await entryDbContext.SaveChangesAsync();
-
-//			return Ok();
-//		}
-//	}
-//}
-
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../models/User';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Entry } from '../../models/Entry';
 
 @Component({
   selector: 'app-register',
@@ -10,21 +11,24 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   public uservalue: User[] = [];
+  public existingEntry: Entry[]=[];
   public newUser: User = {
-    id: 0,
-    username: '',
-    password: ''
+      userId: 0,
+      userName: '',
+      password: '',
+      entries: this.existingEntry
   };
 
-  constructor(private http: HttpClient, private router: Router) { } // Inject Router here
+  constructor(private http: HttpClient, private router : Router) { } // Inject Router here
 
   SaveUser() {
     this.http.post<User>('/api/user', this.newUser).subscribe(
       (result) => {
         console.log('saved successfully:', result);
-        this.newUser.username = '';
+        this.newUser.userName = '';
         this.newUser.password = '';
-        this.router.navigate(['/app-time-tracker']);
+        this.GetUser();
+        this.router.navigate(['/track-time']);
       },
       (error) => {
         console.error('Error saving user-entry:', error);
