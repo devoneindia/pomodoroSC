@@ -22,6 +22,7 @@ namespace Pomodoro.Server.Controllers
 			_entryDbContext = entryDbContext;
 		}
 
+		// UserController.cs
 		[HttpPost]
 		public async Task<IActionResult> SaveUser([FromBody] User user)
 		{
@@ -49,7 +50,7 @@ namespace Pomodoro.Server.Controllers
 		{
 			try
 			{
-				var users = _entryDbContext.users.ToList();
+				var users = _entryDbContext.users;
 				_logger.LogInformation("Retrieved users from the database.");
 				return Ok(users);
 			}
@@ -62,28 +63,8 @@ namespace Pomodoro.Server.Controllers
 	}
 }
 
-
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using Pomodoro.Server.DbContexts;
-//using Pomodoro.Server.Models;
-
-//namespace Pomodoro.Server.Controllers
-//{
-//	[Route("api/[controller]")]
-//	[ApiController]
-//	public class UserController : ControllerBase
-//	{
-
-//		private readonly ILogger<UserController> _logger01;
-//		private readonly EntryDbContext _entryDbContext;
-//		public UserController(ILogger<UserController> loggers, EntryDbContext entryDbContext)
-//		{
-//			_logger01 = loggers;
-//			_entryDbContext = entryDbContext;
-//		}
 //		[HttpPost]
-//		public async Task<IActionResult> saveUser([FromBody] User user)
+//		public async Task<IActionResult> SaveUser([FromBody] User user)
 //		{
 //			if (!ModelState.IsValid)
 //			{
@@ -92,33 +73,33 @@ namespace Pomodoro.Server.Controllers
 
 //			try
 //			{
-
 //				_entryDbContext.users.Add(user);
 //				await _entryDbContext.SaveChangesAsync();
-//				_logger01.LogInformation($"The data has been posted to the Postgresql Database.");
+//				_logger.LogInformation("User data has been saved to the database.");
 //				return Ok(user);
 //			}
 //			catch (Exception ex)
 //			{
-//				_logger01.LogError($"An error occurred while saving entry: {ex}");
-//				return StatusCode(500, "An error occurred while processing your request.");
-//			}
-//		}
-//		[HttpGet]
-//		public IActionResult getUser()
-//		{
-//			try
-//			{
-//				var entries = _entryDbContext.users.ToArray();
-//				_logger01.LogInformation($"The values from the Database is UP-TO-DATE!.");
-//				return Ok(entries);
-//			}
-//			catch (Exception ex)
-//			{
-//				_logger01.LogError($"An error occurred while fetching entries: {ex}");
-//				return StatusCode(500, "An error occurred while processing your request.");
+//				_logger.LogError($"An error occurred while saving user: {ex}");
+//				return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
 //			}
 //		}
 
+//		[HttpGet]
+//		public IActionResult GetUser()
+//		{
+//			try
+//			{
+//				var users = _entryDbContext.users.ToList();
+//				_logger.LogInformation("Retrieved users from the database.");
+//				return Ok(users);
+//			}
+//			catch (Exception ex)
+//			{
+//				_logger.LogError($"An error occurred while fetching users: {ex}");
+//				return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+//			}
+//		}
 //	}
 //}
+

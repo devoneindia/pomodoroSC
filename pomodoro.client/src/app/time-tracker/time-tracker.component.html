@@ -12,11 +12,9 @@
       <div class="row">
         <div class="col-4">
           <label for="devname">Developer Name:</label>
-          <select id="devname" [(ngModel)]="record.devname" name="devname" class="form-control">
-            <option value="santhosh">Santhosh</option>
-            <option value="praveen">Praveen</option>
-            <option value="akila">Akila</option>
-            <option value="rahul">Rahul</option>
+          <select *ngIf="existingUsers"  [(ngModel)]="record.userId"
+          name="userId" class="form-control select-user">
+            <option class="option" *ngFor="let user of existingUsers" [value]="user.userId">{{ user.userName }}</option>
           </select>
         </div>
 
@@ -48,7 +46,7 @@
     </form>
   </div>
 
-  <div *ngIf="userentry">
+  <div *ngIf="existingUsers">
     <h2>Existing Entries</h2>
     <table>
       <thead>
@@ -63,22 +61,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let entry of userentry">
-          <td>{{ entry.devname }}</td>
-          <td>{{ entry.date | date }}</td>
-          <td>{{ entry.startingtime }}</td>
-          <td>{{ entry.endingtime }}</td>
-          <td>{{ entry.comment }}</td>
-          <td>{{ entry.totaltime }}</td>
-          <td>
-            <button (click)="deleteEntry(entry.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
+            <tr *ngFor="let entry of userTimeLogs">
+              <td>{{ entry.userName }}</td>
+              <td>{{ entry.date }}</td>
+              <td>{{ entry.startingtime }}</td>
+              <td>{{ entry.endingtime }}</td>
+              <td>{{ entry.comment }}</td>
+              <td>{{ entry.totaltime }}</td>
+              <td>
+                <button (click)="deleteEntry(entry.id)">Delete</button>
+              </td>
+            </tr>
+</tbody>
     </table>
   </div>
 </body>
 </html>
-
-
 

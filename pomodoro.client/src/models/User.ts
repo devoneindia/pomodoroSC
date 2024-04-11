@@ -1,5 +1,8 @@
+import { Entry } from "./Entry";
+
 export interface User {
-  id: number;
-  username: string;
+  userId: number;
+  userName: string;
   password: string;
+  entries: Entry[];
 }

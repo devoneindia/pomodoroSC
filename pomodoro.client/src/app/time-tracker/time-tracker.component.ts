@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Entry } from '../../models/Entry';
-
+import { User } from '../../models/User';
 
 @Component({
   selector: 'app-time-tracker',
@@ -9,37 +9,87 @@ import { Entry } from '../../models/Entry';
   styleUrls: ['./time-tracker.component.css']
 })
 export class TimeTrackerComponent implements OnInit {
-  public userentry : Entry[]=[] 
+
+  public userTimeLogs: Entry[] = []
+  public existingUsers: User[] = []
   public record: Entry = {
-    id: 0,
-    devname: '',
+    userId:0,
+    userName: '',
     date: new Date(),
     startingtime: '',
     endingtime: '',
     comment: '',
-    totaltime: ''
+    totaltime: '',
+    id:0
   };
-
+  
   timer: any;
   timerStarted: boolean = false;
   startTime!: Date;
   currentTime!: string;
 
+  /* constructor(private http: HttpClient) { }*/
   constructor(private http: HttpClient) { }
+  getUsernameFromUserId() {
+    if (this.existingUsers.length === 0) {
+      // Fetch users first if the array is empty
+      this.getUser();
+      return;
+    }
+
+    const selectedUser = this.existingUsers.find(existingUser => existingUser.userId === +this.record.userId);
+    if (selectedUser) {
+      this.record.userName = selectedUser.userName;
+      console.log(`Username for id ${this.record.userId} is ${selectedUser.userName}`);
+    } else {
+      console.log(`Sorry did not find user for id ${this.record.userId}`);
+    }
+  }
+  getUser() {
+    this.http.get<User[]>('/api/user').subscribe(
+      (result) => {
+        this.existingUsers = result;
+        // Assuming there's only one user fetched, you can directly access it
+      
+      },
+      (error) => {
+        console.error('Error fetching user:', error);
+      }
+    );
+  }
+ 
+
+  ngOnInit(): void {
+    this.getAllEntries();
+  }
+
+  getAllEntries() {
+    this.http.get<Entry[]>('/api/pomodoro').subscribe(
+      (result) => {
+        //this.record=
+        //  {
+        //    userId: 0,
+        //    name: '',
+        //    date: new Date(),
+        //    startingtime: '',
+        //    endingtime: '',
+        //    comment: '',
+        //    totaltime: ''
+        //  };
+        this.userTimeLogs = result;
+        this.getUser();
+      },
+      (error) => {
+        console.error('Error fetching entries:', error);
+      }
+    );
+  }
 
   saveDevEntry() {
     this.http.post<Entry>('/api/pomodoro', this.record).subscribe(
       (result) => {
         console.log('saved successfully:', result);
-        this.record = {
-          id: 0,
-          devname: '',
-          date: new Date(),
-          startingtime: '',
-          endingtime: '',
-          comment: '',
-          totaltime: ''
-        };
+        this.userTimeLogs.push(result);
         this.getAllEntries(); 
       },
       (error) => {
@@ -48,26 +98,23 @@ export class TimeTrackerComponent implements OnInit {
     );
   }
 
-    ngOnInit(): void {
-    this.getAllEntries();
-  }
 
-  getAllEntries() {
-    this.http.get<Entry[]>('/api/pomodoro').subscribe(
-      (result) => {
-        this.userentry = result;
-      },
-      (error) => {
-        console.error('Error fetching entries:', error);
-      }
-    );
-  }
-
+  //deleteEntry(userId: number): void {
+  //  this.http.delete(`/api/pomodoro/${userId}`).subscribe(
+  //    () => {
+  //      console.log('Deleted successfully');
+  //      this.getAllEntries(); 
+  //    },
+  //    (error) => {
+  //      console.error('Error deleting entry:', error);
+  //    }
+  //  );
+  //}
   deleteEntry(id: number): void {
     this.http.delete(`/api/pomodoro/${id}`).subscribe(
       () => {
         console.log('Deleted successfully');
-        this.getAllEntries(); 
+        this.getAllEntries();
       },
       (error) => {
         console.error('Error deleting entry:', error);
@@ -82,7 +129,7 @@ export class TimeTrackerComponent implements OnInit {
     this.timer = setInterval(() => {
       const currentTime = new Date();
       this.currentTime = currentTime.toTimeString().slice(0, 8);
-    }, 1000); // Update every second
+    }, 1000); 
   }
   stopTimer() {
     clearInterval(this.timer);
@@ -91,6 +138,7 @@ export class TimeTrackerComponent implements OnInit {
     const totalTime = this.calculateTotalTime(this.startTime, endTime);
     this.record.endingtime = endTime.toTimeString().slice(0, 8);
     this.record.totaltime = totalTime;
+    this.getUsernameFromUserId();
     this.saveDevEntry();
   }
   calculateTotalTime(startTime: Date, endTime: Date): string {

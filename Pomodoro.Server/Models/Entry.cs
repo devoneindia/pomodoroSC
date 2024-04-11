@@ -10,22 +10,26 @@ namespace Pomodoro.Server.Models
 		[Column("id")]
 		public int Id { get; set; }
 
-		[Column("dev-name")]
-		public string Devname { get; set; }
+		[Column("user-name")]
+		public string? userName { get; set; }
 
 		[Column("date")]
-		public DateOnly Date { get; set; }
+		public string? Date { get; set; }
 
 		[Column("starting-time")]
-		public string Startingtime { get; set; }
+		public string? Startingtime { get; set; }
 
 		[Column("ending-time")]
-		public string Endingtime { get; set; }
+		public string? Endingtime { get; set; }
 
 		[Column("comment")]
-		public string Comment { get; set; }
+		public string? Comment { get; set; }
 
 		[Column("total-time")]
-		public string Totaltime { get; set; }
+		public string? Totaltime { get; set; }
+
+		[ForeignKey("user")]
+		[Column("user-id")]
+		public int UserId { get; set; }
 	}
 }

@@ -8,14 +8,17 @@ namespace Pomodoro.Server.Models
 	public class User 
 	{
 		[Key]
-		[Column("id")]
-		public int Id { get; set; }
+		[Column("user-id")]
+		public int UserId { get; set; }
 
-		[Column("user-name")]
-		public string Username { get; set; }
+		[Column("user_name")]
+		public string UserName { get; set; } = string.Empty;
+		
 
 		[Column("password")]
 		public string Password { get; set; }
+		public required ICollection<Entry> entries { get; set; }
+
 
 	}
 }
