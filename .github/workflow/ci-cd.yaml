@@ -1,4 +1,4 @@
-name: CICD
+name: Continuos Integration and Deployment
 
 on:
   push:
