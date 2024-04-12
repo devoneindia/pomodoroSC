@@ -1,0 +1,97 @@
+.version-container, .version-title {
+  margin: auto;
+}
+
+.version-container {
+  border-bottom: 1px dotted black;
+}
+
+form {
+  border: 3px solid black;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+  form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  form .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  form .col-4 {
+    width: 30%;
+  }
+
+  form button {
+    margin-top: 10px;
+  }
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid darkslateblue;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+
+h1, h2 {
+  text-align: center;
+}
+
+h1 {
+  color: darkslateblue;
+}
+
+h2 {
+  color: mediumvioletred;
+  margin-top: 30px;
+}
+.btn {
+  padding: 10px 25px;
+  cursor: pointer;
+  border: none; 
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: forestgreen;
+  color: white;
+}
+
+.btn-danger {
+  background-color: red;
+  color: white;
+}
+
+.select-user{
+    width:100%;
+}
+.option{
+    color:black;
+}
+
+
+.big-timer {
+  font-size: 24px;
+  font-family:Impact;
+  color:goldenrod;
+  padding: 10px; 
+  width: 80%; 
+}
