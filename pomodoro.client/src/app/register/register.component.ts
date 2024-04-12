@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
       entries: this.existingEntry
   };
 
-  constructor(private http: HttpClient, private router : Router) { } // Inject Router here
+  constructor(private http: HttpClient, private router : Router) { }
 
   SaveUser() {
     this.http.post<User>('/api/user', this.newUser).subscribe(
