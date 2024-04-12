@@ -2,6 +2,9 @@ import { Component, OnInit, isDevMode } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Entry } from '../../models/Entry';
 import { User } from '../../models/User';
+import { Version } from '../../models/Version';
+
+
 
 @Component({
   selector: 'app-time-tracker',
@@ -9,7 +12,12 @@ import { User } from '../../models/User';
   styleUrls: ['./time-tracker.component.css']
 })
 export class TimeTrackerComponent implements OnInit {
-
+  public versionInfo: Version =
+    {
+      versionName: 'Version - 1.1',
+      versionBranch: 'GitHub Branch: users/sc/20240411_Version_Info'
+    };
+  
   public userTimeLogs: Entry[] = []
   public existingUsers: User[] = []
   public record: Entry = {
@@ -28,11 +36,10 @@ export class TimeTrackerComponent implements OnInit {
   startTime!: Date;
   currentTime!: string;
 
-  /* constructor(private http: HttpClient) { }*/
+
   constructor(private http: HttpClient) { }
   getUsernameFromUserId() {
     if (this.existingUsers.length === 0) {
-      // Fetch users first if the array is empty
       this.getUser();
       return;
     }
@@ -49,7 +56,6 @@ export class TimeTrackerComponent implements OnInit {
     this.http.get<User[]>('/api/user').subscribe(
       (result) => {
         this.existingUsers = result;
-        // Assuming there's only one user fetched, you can directly access it
       
       },
       (error) => {
@@ -98,18 +104,6 @@ export class TimeTrackerComponent implements OnInit {
     );
   }
 
-
-  //deleteEntry(userId: number): void {
-  //  this.http.delete(`/api/pomodoro/${userId}`).subscribe(
-  //    () => {
-  //      console.log('Deleted successfully');
-  //      this.getAllEntries(); 
-  //    },
-  //    (error) => {
-  //      console.error('Error deleting entry:', error);
-  //    }
-  //  );
-  //}
   deleteEntry(id: number): void {
     this.http.delete(`/api/pomodoro/${id}`).subscribe(
       () => {

@@ -1,4 +1,10 @@
+.version-container, .version-title {
+  margin: auto;
+}
 
+.version-container {
+  border-bottom: 1px dotted black;
+}
 
 form {
   border: 3px solid black;
@@ -82,3 +88,10 @@ h2 {
 }
 
 
+.big-timer {
+  font-size: 24px;
+  font-family:Impact;
+  color:goldenrod;
+  padding: 10px; 
+  width: 80%; 
+}
