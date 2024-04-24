@@ -1,27 +1,29 @@
-name: Continuos Integration & Deployment
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@main
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.x
+      - name: Restore dependency
+        run: dotnet restore Pomodoro.Server
+      - name: Build project
+        run: dotnet build -c Release --no-restore Pomodoro.Server
+      - name: publish project
+        run: dotnet publish Pomodoro.Server -c Release -o ./publish
+      - name: Make Key Read only Step 1
+        run: pwd 
 
-
-on:
+      
+      
+     
+name: Build and Test
+'on':
   push:
     branches:
       - main
 
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-     
-      - name: Setup .NET 8.0
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-     
-          -name: Restore dependencies
-          run: dotnet restore 
-      
-      
-      - name: Build project
-        run:  dotnet build -c Release --no-restore
