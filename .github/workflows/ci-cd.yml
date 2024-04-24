@@ -17,7 +17,17 @@ jobs:
         run: dotnet publish Pomodoro.Server -c Release -o ./publish
       - name: Make Key Read only Step 1
         run: pwd 
-
+      - name: Make Key Read only Step 2
+        run: sudo chmod 0400 /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem
+      - name: Make Key Read only Step 3 - Verify
+        run: pwd && ls -al /home/runner/work/pomodoroSC/pomodoroSC/key
+      - name: Install SSH
+        run: sudo apt-get install openssh-client -y
+      - name: Create Server Target Folder
+        run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'mkdir -p /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M")'
+      - name: Copy Server files to EC2 instance
+        run: scp -o StrictHostKeyChecking=no -r -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem ./publish/* 'ubuntu@3.213.39.34:/usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M")'
+      
       
       
      
