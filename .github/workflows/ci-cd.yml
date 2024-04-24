@@ -1,3 +1,8 @@
+name: CI-CD
+'on':
+  push:
+    branches:
+      - main
 jobs:
   build:
     name: Build and Deploy
@@ -27,13 +32,6 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'mkdir -p /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M")'
       - name: Copy Server files to EC2 instance
         run: scp -o StrictHostKeyChecking=no -r -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem ./publish/* 'ubuntu@3.213.39.34:/usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M")'
+      - name: Create a SymLink
+        run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'ln -s /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M") current'
       
-      
-      
-     
-name: Build and Test
-'on':
-  push:
-    branches:
-      - main
-
