@@ -39,5 +39,5 @@ jobs:
       - name: Create a SymLink
         run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'ln -s /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M") current'
       - name: Create a service 
-        run:  ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 echo"Test001" > $(date +"%Y%m%d%H%M").service && nano -S -x $(date +"%Y%m%d%H%M").service'
+        run:  ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'sudo echo"Test001" > $(date +"%Y%m%d%H%M").service && nano -S -x $(date +"%Y%m%d%H%M").service'
       
