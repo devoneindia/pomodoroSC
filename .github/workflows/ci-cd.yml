@@ -34,6 +34,8 @@ jobs:
         run: scp -o StrictHostKeyChecking=no -r -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem ./publish/* 'ubuntu@3.213.39.34:/usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M")'
       - name: Remove a SymLink 
         run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 ' rm /usr/lknsln/devscapps/pomodoro/current'
+      - name: Print Current Working Directory
+        run: pwd 
       - name: Create a SymLink
         run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'ln -s $(date +"%Y%m%d%H%M") current'
       
