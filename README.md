@@ -8,3 +8,9 @@ Time Tracking App
         - name: Create a service
         run: |
           ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem ubuntu@3.213.39.34 'sudo echo "Test001" > /usr/lknsln/devscapps/pomodoro/scnew.service && nano -S -x scnew.service'
+
+
+ - name: Create a service
+        run: |
+         ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'echo "Your content here" | sudo tee /usr/lknsln/devscapps/pomodoro/scnew01.service >/dev/null
+         sudo nano /usr/lknsln/devscapps/pomodoro/scnew01.service'
