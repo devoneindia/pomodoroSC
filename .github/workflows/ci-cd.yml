@@ -59,4 +59,5 @@ jobs:
            WantedBy=multi-user.target
            " | sudo tee /etc/systemd/system/scnew01.service >/dev/null'
            ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'sudo vim /etc/systemd/system/scnew01.service -c "wq"'
-       
+      - name: Enable and start service
+        run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'sudo systemctl enable scnew01.service && sudo systemctl start scnew01.service'
