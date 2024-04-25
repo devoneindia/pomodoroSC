@@ -40,6 +40,23 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'ln -s /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M") current'
       - name: Create a service file
         run: |
-           ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'echo "Your content here" | sudo tee /usr/lknsln/devscapps/pomodoro/scnew01.service >/dev/null'
-           ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'sudo vim /usr/lknsln/devscapps/pomodoro/scnew01.service -c "wq"'
+           ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'echo "[Unit]
+           Description=DemoApp created by sc
+           
+           [Service]
+           WorkingDirectory=/usr/src/devscgrmpzzserver
+           ExecStart=/usr/bin/dotnet /usr/src/devscgrmpzzserver/Pomodoro.Server.dll --urls=http://localhost:5099
+           Restart=always
+           # Restart service after 10 seconds if the dotnet service crashes:
+           RestartSec=10
+           KillSignal=SIGINT
+           SyslogIdentifier=dotnet-demo/demoappscgrmpzz
+           User=www-data
+           Environment=ASPNETCORE_ENVIRONMENT=Production
+           Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+           
+           [Install]
+           WantedBy=multi-user.target
+           " | sudo tee /etc/systemd/system/scnew01.service >/dev/null'
+           ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'sudo vim /etc/systemd/system/scnew01.service -c "wq"'
        
