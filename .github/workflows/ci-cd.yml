@@ -36,6 +36,8 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 ' rm /usr/lknsln/devscapps/pomodoro/current'
       - name: Print Current Working Directory
         run: pwd 
+      - name: Create a SymLink
+        run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'ln -s /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M") /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M")/current'  
       - name: Create a service file
         run: |
            ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'echo "[Unit]

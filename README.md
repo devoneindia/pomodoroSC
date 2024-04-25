@@ -14,5 +14,7 @@ Time Tracking App
         run: |
          ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'echo "Your content here" | sudo tee /usr/lknsln/devscapps/pomodoro/scnew01.service >/dev/null
          sudo nano /usr/lknsln/devscapps/pomodoro/scnew01.service'
-- name: Create a SymLink
-        run: ssh -o StrictHostKeyChecking=no -i /home/runner/work/pomodoroSC/pomodoroSC/key/ls-rywds-dev-01-keypair-01.pem  ubuntu@3.213.39.34 'ln -s /usr/lknsln/devscapps/pomodoro/$(date +"%Y%m%d%H%M") current'
+
+        
+
+        
